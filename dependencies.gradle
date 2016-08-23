@@ -1,0 +1,101 @@
+/*
+ * Copyright (c) 2/9/2015 Cricbuzz.com
+ * All rights reserved.
+ *
+ * http://www,cricbuzz.com
+ * @author: kiran.kumar
+ */
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+ext {
+    //Android
+    androidBuildToolsVersion = "23.0.2"
+    androidMinSdkVersion = 16
+    androidTargetSdkVersion = 23
+    androidCompileSdkVersion = 23
+
+    def libver = [
+            dagger                  : '2.0.2',
+            javaxAnnotation         : '1.0',
+            butterKnife             : '7.0.1',
+            retrofit                : '2.0.1',
+            okio                    : '1.6.0',
+            picasso                 : '2.5.2',
+            picassoOkHttp3          : '1.0.2',
+            rxJava                  : '1.1.3',
+            rxAndroid               : '1.1.0',
+            rxBindingAppcompact     : '0.4.0',
+            OkHTTPLog               : '3.1.2',
+            wire                    : '2.1.1',
+            stetho                  : '1.3.1',
+            googlePlay              : '8.4.0',
+            androidSupport          : '23.2.1',
+            appbarlayout            : '0.2.3',
+            junit                   : '4.12',
+            mockito                 : '1.10.19',
+            robolectric             : '3.0',
+            espressoVersion         : '2.2.1',
+            testRunner              : '0.4.1',
+            dexMaker                : '1.4',
+            testingSupport          : '0.1',
+            rxBinding               :'0.4.0',
+    ]
+
+    libs = [
+            daggerCompiler          : "com.google.dagger:dagger-compiler:${libver.dagger}",
+
+            dagger                  : "com.google.dagger:dagger:${libver.dagger}",
+            javaxAnnotation         : "javax.annotation:jsr250-api:${libver.javaxAnnotation}",
+            butterKnife             : "com.jakewharton:butterknife:${libver.butterKnife}",
+            okio                    : "com.squareup.okio:okio:${libver.okio}",
+            picasso                 : "com.squareup.picasso:picasso:${libver.picasso}",
+            picassoOkHttp3          : "com.jakewharton.picasso:picasso2-okhttp3-downloader:${libver.picassoOkHttp3}",
+            retrofit                : "com.squareup.retrofit2:retrofit:${libver.retrofit}",
+            retrofitRxJavaAdapter   : "com.squareup.retrofit2:adapter-rxjava:${libver.retrofit}",
+            rxJava                  : "io.reactivex:rxjava:${libver.rxJava}",
+            rxAndroid               : "io.reactivex:rxandroid:${libver.rxAndroid}",
+            rxBindingAppcompact     : "com.jakewharton.rxbinding:rxbinding-appcompat-v7:${libver.rxBindingAppcompact}",
+            wire                    : "com.squareup.wire:wire-runtime:${libver.wire}",
+            wireConverter           : "com.squareup.retrofit2:converter-wire:${libver.retrofit}",
+            gsonConverter           : "com.squareup.retrofit2:converter-gson:${libver.retrofit}",
+            OkHTTPLog               : "com.squareup.okhttp3:logging-interceptor:${libver.OkHTTPLog}",
+            stetho                  : "com.facebook.stetho:stetho:${libver.stetho}",
+            stethoOkHttp            : "com.facebook.stetho:stetho-okhttp3:${libver.stetho}",
+
+            googlePlay              : "com.google.android.gms:play-services-gcm:${libver.googlePlay}",
+            design                  : "com.android.support:design:${libver.androidSupport}",
+            recyclerView            : "com.android.support:recyclerview-v7:${libver.androidSupport}",
+            palette                 : "com.android.support:palette-v7:${libver.androidSupport}",
+            cardview                : "com.android.support:cardview-v7:${libver.androidSupport}",
+            percent                 : "com.android.support:percent:${libver.androidSupport}",
+            supportv4               : "com.android.support:support-v4:${libver.androidSupport}",
+            appcompatv7             : "com.android.support:appcompat-v7:${libver.androidSupport}",
+            supportv13              : "com.android.support:support-v13:${libver.androidSupport}",
+            smoothappbarlayout      : "me.henrytao:smooth-app-bar-layout:${libver.appbarlayout}",
+
+            junit                   : "junit:junit:${libver.junit}",
+            mockito                 : "org.mockito:mockito-core:${libver.mockito}",
+            retrofitMock            : "com.squareup.retrofit:retrofit-mock:1.9.0",
+            okHttpMockWeb           : "com.squareup.okhttp:mockwebserver:2.7.2",
+            robolectric             : "org.robolectric:robolectric:${libver.robolectric}",
+            robolectricSupportv4    : "org.robolectric:shadows-support-v4:${libver.robolectric}",
+            robolectricPlay         : "org.robolectric:shadows-play-services:${libver.robolectric}",
+
+            espressoCore            : "com.android.support.test.espresso:espresso-core:${libver.espressoVersion}",
+            espressoContrib         : "com.android.support.test.espresso:espresso-contrib:${libver.espressoVersion}",
+            espressoIntents         : "com.android.support.test.espresso:espresso-intents:${libver.espressoVersion}",
+            testRunner              : "com.android.support.test:runner:${libver.testRunner}",
+            testRules               : "com.android.support.test:rules:${libver.testRunner}",
+            dexMaker                : "com.crittercism.dexmaker:dexmaker:${libver.dexMaker}",
+            dexMakerDx              : "com.crittercism.dexmaker:dexmaker-dx:${libver.dexMaker}",
+            dexMakerMockito         : "com.crittercism.dexmaker:dexmaker-mockito:${libver.dexMaker}",
+            testingSupport          : "com.android.support.test:testing-support-lib:${libver.testingSupport}",
+            RxBinding               : "com.jakewharton.rxbinding:rxbinding-appcompat-v7:${libver.rxBinding}",
+
+    ]
+
+}
