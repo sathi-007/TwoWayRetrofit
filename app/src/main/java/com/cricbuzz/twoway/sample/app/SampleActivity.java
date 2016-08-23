@@ -19,21 +19,23 @@ import retrofit2.Converter;
 import retrofit2.Response;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class SampleActivity extends AppCompatActivity {
     String baseUrl = "http://jsonplaceholder.typicode.com/";
     Api api;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sample);
     }
 
-    public void fetchdata(View v){
+    public void fetchdata(View v) {
         SampleJsonSubscriber subscriber = new SampleJsonSubscriber();
-        api.getSampleJson().observeOn(Schedulers.io())
+        subscription = api.getSampleJson().observeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -41,6 +43,10 @@ public class SampleActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        initialize();
+    }
+
+    public void initialize() {
         TwoWayHttpClient twoWayHttpClient = provideTwoWayHttpClient(this);
         TwoWayRetrofit retrofit = createTwoWayAdapter(baseUrl, twoWayHttpClient, GsonConverterFactory.create());
         api = (Api) retrofit.create(Api.class);
@@ -69,7 +75,12 @@ public class SampleActivity extends AppCompatActivity {
 
         @Override
         public void onCompleted() {
+
             Ln.i(TAG, "SampleJsonSubscriber Completed!");
+            if (subscription != null && !subscription.isUnsubscribed()) {
+                subscription.unsubscribe();
+            }
+            initialize();
         }
 
         @Override
@@ -82,8 +93,10 @@ public class SampleActivity extends AppCompatActivity {
             //todo need to handle Error Handling based in response, discuss with Harsha/Pravin for figuring the retry mechanism
             Ln.d(TAG, "Response Json List:" + response.isSuccessful() + "---" + response.code());
 
+
         }
     }
 
+    private Subscription subscription;
     private final String TAG = SampleActivity.class.getSimpleName();
 }

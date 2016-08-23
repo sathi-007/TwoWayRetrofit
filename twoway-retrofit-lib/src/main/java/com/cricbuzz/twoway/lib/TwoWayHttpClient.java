@@ -85,6 +85,7 @@ public class TwoWayHttpClient {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request request = chain.request();
+
                 Response originalResponse;
                 Request newRequest = request.newBuilder()
                         .removeHeader("Pragma")
@@ -94,8 +95,9 @@ public class TwoWayHttpClient {
                         .build();
 
                 originalResponse = chain.proceed(newRequest);
-                if (originalResponse != null) {
+                if (originalResponse != null&&originalResponse.code()==504) {
                     Ln.d(TAG, "CacheReadInterceptor  request " + newRequest.headers().toString() + " response " + originalResponse.headers().toString() + " response code " + originalResponse.code());
+                    return originalResponse.newBuilder().build();
                 }
                 return originalResponse;
             }
