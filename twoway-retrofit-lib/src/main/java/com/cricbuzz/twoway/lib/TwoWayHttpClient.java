@@ -86,14 +86,11 @@ public class TwoWayHttpClient {
             public Response intercept(Chain chain) throws IOException {
                 Request request = chain.request();
                 Response originalResponse;
-                int maxStale = 60 * 60 * 24 * 1; // tolerate 1-weeks stale //todo: get it from Build COFIG
                 Request newRequest = request.newBuilder()
-                        .addHeader("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
-                        .cacheControl(new CacheControl.Builder()
-                                .maxAge(maxStale, TimeUnit.SECONDS)
-                                .maxStale(maxStale, TimeUnit.SECONDS)
-                                .onlyIfCached()
-                                .build())
+                        .removeHeader("Pragma")
+                        .removeHeader("Cache-Control")
+//                        .header("Cache-Control", "only-if-cached, max-stale=" + maxStale)
+                        .cacheControl(CacheControl.FORCE_CACHE)
                         .build();
 
                 originalResponse = chain.proceed(newRequest);
@@ -114,11 +111,9 @@ public class TwoWayHttpClient {
             public Response intercept(Chain chain) throws IOException {
                 Request originalRequest = chain.request();
                 Request request = originalRequest.newBuilder()
+                        .removeHeader("Pragma")
                         .removeHeader("Cache-Control")
-                        .cacheControl(new CacheControl.Builder()
-                                .noCache()
-                                .maxAge(0, TimeUnit.SECONDS)
-                                .build())
+                        .cacheControl(CacheControl.FORCE_NETWORK)
                         .build();
 
                 Response response = chain.proceed(request);
@@ -142,8 +137,7 @@ public class TwoWayHttpClient {
                 Ln.d(TAG, "CacheWriteInterceptor request " + originalRequest.headers().toString() + " response " + response.headers().toString());
                 return response.newBuilder()
                         .removeHeader("Pragma")
-                        .header("Cache-Control",
-                                String.format("max-age=%d", cachingTime))
+                        .header("Cache-Control","public, max-age="+cachingTime)
                         .build();
             }
         }
@@ -198,6 +192,8 @@ public class TwoWayHttpClient {
                 //Adding CacheWrite Interceptor to enforce response caching
                 okClientBuilder.addNetworkInterceptor(new CacheWriteInterceptor(responseCachingTime));
             }
+
+
 
             return new TwoWayHttpClient(okClientBuilder.build(), okCacheClientBuilder.build());
         }
