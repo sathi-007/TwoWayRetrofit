@@ -103,7 +103,7 @@ public class SampleActivity extends AppCompatActivity {
 
     public String getFromCache(String url) throws Exception {
         final File baseDir = getCacheDir();
-        StringBuffer  szBuffer = new StringBuffer ();
+        StringBuffer szBuffer = new StringBuffer();
         if (baseDir != null) {
             final File cacheDir = new File(baseDir, "http");
             DiskLruCache cache = DiskLruCache.create(FileSystem.SYSTEM, cacheDir, 201105, 2, 10 * 1024 * 1024);
@@ -123,9 +123,9 @@ public class SampleActivity extends AppCompatActivity {
             final Buffer buffer = new Buffer();
             long length = snapshot.getLength(1);
             Source source = snapshot.getSource(1);
-            for (long i = 0; i < length; i += 1024) {
+            for (long i = 0; i < length && !Thread.currentThread().isInterrupted(); i += 1024) {
                 long count = source.read(buffer, 1024);
-                if(count<1){
+                if (count < 1) {
                     break;
                 }
             }
@@ -140,14 +140,13 @@ public class SampleActivity extends AppCompatActivity {
                 }
             };
 
-            byte  tByte [] = new byte [1024];
+            byte tByte[] = new byte[1024];
 
-            while (true)
-            {
-                int  iLength = bodyIn.read(tByte); // <-- Error comes here
+            while (true) {
+                int iLength = bodyIn.read(tByte); // <-- Error comes here
                 if (iLength < 0)
                     break;
-                szBuffer.append (new String (tByte, 0, iLength));
+                szBuffer.append(new String(tByte, 0, iLength));
             }
 
             bodyIn.close();
