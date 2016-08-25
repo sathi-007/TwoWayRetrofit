@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:padding="@dimen/activity_horizontal_margin">
+
+
+    <ImageView
+        android:id="@+id/img_news"
+        android:layout_width="@dimen/news_thumbnail_width"
+        android:layout_height="@dimen/news_thumbnail_height"
+        android:layout_marginTop="@dimen/view_hl_margin"
+        android:scaleType="centerCrop"
+        tools:src="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/txt_heading"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/img_news"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_toRightOf="@+id/img_news"
+        android:ellipsize="end"
+        android:gravity="top|start"
+        android:lineSpacingExtra="2dp"
+        android:maxLines="3"
+        android:text="Sample Text In Activity"
+        tools:ignore="RtlHardcoded" />
+
+
+</RelativeLayout>
+

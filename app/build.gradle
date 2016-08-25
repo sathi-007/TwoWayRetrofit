@@ -30,6 +30,36 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':twoway-retrofit-lib')
     compile libs.gsonConverter
+    compile libs.picasso
+
+    //A OkHttp 3 downloader implementation for Picasso 2.
+    compile libs.picassoOkHttp3
     compile 'com.android.support:appcompat-v7:23.4.0'
     testCompile 'junit:junit:4.12'
+
+    // Android JUnit Runner
+    androidTestCompile('com.android.support.test:runner:0.5'){
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+
+// JUnit4 Rules
+    androidTestCompile('com.android.support.test:rules:0.5'){
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+
+// Espresso core
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2'){
+        // Necessary if your app targets Marshmallow (since Espresso
+        // hasn't moved to Marshmallow yet)
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+// Espresso-contrib for DatePicker, RecyclerView, Drawer actions, Accessibility checks, CountingIdlingResource
+    androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2.2'){
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude module: 'recyclerview-v7'
+    }
+
 }

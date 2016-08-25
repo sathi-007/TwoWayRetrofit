@@ -11,11 +11,27 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.cricbuzz.twoway.sample.app.SampleActivity">
 
-    <Button
+    <include
+        android:id="@+id/layout"
+        layout="@layout/item_news" />
 
+    <Button
+        android:id="@+id/btndata"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/layout"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
         android:onClick="fetchdata"
         android:text="fetch data" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btndata"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:onClick="fetchImage"
+        android:text="fetch Image" />
 
 </RelativeLayout>
